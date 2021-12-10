@@ -55,6 +55,66 @@ class AttributesTableSeeder extends Seeder
         $attribute->searchable = 1;
         $attribute->save();
 
+        $attribute = new Attribute();
+        $attribute->name = ['en' => 'How to use', 'sv' => 'Hur man använder'];
+        $attribute->handle = 'how_to_use';
+        $attribute->position = 2;
+        $attribute->group_id = $group->id;
+        $attribute->channeled = 1;
+        $attribute->required = false;
+        $attribute->type = 'richtext';
+        $attribute->scopeable = 1;
+        $attribute->searchable = 1;
+        $attribute->save();
+
+        $attribute = new Attribute();
+        $attribute->name = ['en' => 'Product warnings', 'sv' => 'Produktvarningar'];
+        $attribute->handle = 'product_warnings';
+        $attribute->position = 2;
+        $attribute->group_id = $group->id;
+        $attribute->channeled = 1;
+        $attribute->required = false;
+        $attribute->type = 'richtext';
+        $attribute->scopeable = 1;
+        $attribute->searchable = 1;
+        $attribute->save();
+
+        $attribute = new Attribute();
+        $attribute->name = ['en' => 'Product specifications', 'sv' => 'Produktspecifikationer'];
+        $attribute->handle = 'product_specifications';
+        $attribute->position = 2;
+        $attribute->group_id = $group->id;
+        $attribute->channeled = 1;
+        $attribute->required = false;
+        $attribute->type = 'richtext';
+        $attribute->scopeable = 1;
+        $attribute->searchable = 1;
+        $attribute->save();
+
+        $attribute = new Attribute();
+        $attribute->name = ['en' => 'Product ingredients', 'sv' => 'Produktens ingredienser'];
+        $attribute->handle = 'product_ingredients';
+        $attribute->position = 2;
+        $attribute->group_id = $group->id;
+        $attribute->channeled = 1;
+        $attribute->required = false;
+        $attribute->type = 'richtext';
+        $attribute->scopeable = 1;
+        $attribute->searchable = 1;
+        $attribute->save();
+
+        $attribute = new Attribute();
+        $attribute->name = ['en' => 'Product description highlight (Poesial says)', 'sv' => 'Produktbeskrivning höjdpunkt (Poesial säger)'];
+        $attribute->handle = 'description_highlight';
+        $attribute->position = 2;
+        $attribute->group_id = $group->id;
+        $attribute->channeled = 1;
+        $attribute->required = false;
+        $attribute->type = 'richtext';
+        $attribute->scopeable = 1;
+        $attribute->searchable = 1;
+        $attribute->save();
+
         // $group = AttributeGroup::create([
         //     'name' => ['en' => 'General', 'sv' => 'Allmän'],
         //     'handle' => 'general',

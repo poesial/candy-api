@@ -226,4 +226,14 @@ class Product extends BaseModel
     {
         return $this->primaryAsset ? $this->primaryAsset->transforms->first()->url ?? null : null;
     }
+
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
+
+    public function colours()
+    {
+        return $this->hasMany(ProductColour::class);
+    }
 }
