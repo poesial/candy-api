@@ -25,6 +25,7 @@ class UpdateVariant implements PipesContract
         $variant->min_batch = $line->min_batch;
         $variant->stock = $line->stock;
         $variant->backorder = $line->backorder;
+        $variant->cost = $line->cost;
 
         return $next([$variant, $line, $import]);
     }
