@@ -59,6 +59,13 @@ class ProductVariantResource extends AbstractResource
                 'unit' => $this->volume_unit,
             ],
             'options' => $this->options,
+            'cost' => $this->cost,
+            'import_tax' => $this->import_tax,
+            'inward_shipping_cost' => $this->inward_shipping_cost,
+            'margin' => $this->margin,
+            'profit' => $this->profit,
+            'replenishment_arrival_date' => $this->replenishment_arrival_date,
+            'replenishment_units' => $this->replenishment_units,
         ];
     }
 
