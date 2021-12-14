@@ -2,6 +2,7 @@
 
 namespace GetCandy\Api\Core\Scaffold;
 
+use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Categories\Models\Category;
 use GetCandy\Api\Core\Exceptions\AliasResolutionException;
 use GetCandy\Api\Core\Products\Models\Product;
@@ -12,6 +13,7 @@ class AliasResolver
     public static $aliases = [
         'product' => Product::class,
         'category' => Category::class,
+        'blog' => Blog::class,
     ];
 
     public static function addAliases($key, $value)

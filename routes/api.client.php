@@ -19,6 +19,9 @@ $router->get('categories/{id}', 'Categories\CategoryController@show');
 $router->get('products/recommended', 'Products\ProductController@recommended');
 $router->get('products/{encoded_id}', '\GetCandy\Api\Core\Products\Actions\FetchProduct');
 $router->get('products', 'Products\ProductController@index');
+$router->get('blogs/recommended', 'Blogs\BlogController@recommended');
+$router->get('blogs/{encoded_id}', '\GetCandy\Api\Core\Blogs\Actions\FetchBlog');
+$router->get('blogs', 'Blogs\BlogController@index');
 
 /*
 * Customers

@@ -185,6 +185,16 @@ return [
                     ],
                 ],
             ],
+            'blogs' => [
+                'multi_match' => [
+                    'types' => [
+                        'cross_fields' => [
+                            'title^3',
+                            'title.en^4',
+                        ],
+                    ],
+                ],
+            ],
             'products' => [
                 'multi_match' => [
                     'types' => [

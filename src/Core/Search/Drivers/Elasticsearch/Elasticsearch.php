@@ -3,9 +3,11 @@
 namespace GetCandy\Api\Core\Search\Drivers\Elasticsearch;
 
 use GetCandy\Api\Core\Categories\Models\Category;
+use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Products\Models\Product;
 use GetCandy\Api\Core\Search\Drivers\AbstractSearchDriver;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\FetchClient;
+use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\IndexBlogs;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\IndexCategories;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\IndexProducts;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\Searching\Search;
@@ -15,6 +17,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Elasticsearch extends AbstractSearchDriver
 {
@@ -46,6 +49,13 @@ class Elasticsearch extends AbstractSearchDriver
                     'final' => $final,
                 ]);
                 break;
+            case Blog::class:
+                IndexBlogs::run([
+                    'blogs' => $documents,
+                    'uuid' => $this->reference,
+                    'final' => $final,
+                ]);
+                break;
             default:
             break;
         }
@@ -61,7 +71,20 @@ class Elasticsearch extends AbstractSearchDriver
 
         $prefix = config('getcandy.search.index_prefix');
 
-        $type = get_class($documents->first()) == Product::class ? 'products' : 'categories';
+        $type = get_class($documents->first());
+        switch ($type) {
+            case Product::class:
+                $type = 'products';
+                break;
+            case Category::class:
+                $type = 'categories';
+                break;
+            case Blog::class:
+                $type = 'blogs';
+                break;
+            default:
+                break;
+        }
 
         $existing = collect($client->getStatus()->getIndexNames())->filter(function ($indexName) use ($prefix, $type) {
             return strpos($indexName, "{$prefix}_{$type}") !== false;
@@ -81,7 +104,20 @@ class Elasticsearch extends AbstractSearchDriver
 
         $prefix = config('getcandy.search.index_prefix');
 
-        $type = get_class($documents->first()) == Product::class ? 'products' : 'categories';
+        $type = get_class($documents->first());
+        switch ($type) {
+            case Product::class:
+                $type = 'products';
+                break;
+            case Category::class:
+                $type = 'categories';
+                break;
+            case Blog::class:
+                $type = 'blogs';
+                break;
+            default:
+                break;
+        }
 
         $existing = collect($client->getStatus()->getIndexNames())->filter(function ($indexName) use ($prefix, $type) {
             return strpos($indexName, "{$prefix}_{$type}") !== false;

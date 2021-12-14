@@ -3,6 +3,7 @@
 namespace GetCandy\Api\Core\Assets\Actions;
 
 use GetCandy\Api\Core\Assets\Models\Asset;
+use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Categories\Models\Category;
 use GetCandy\Api\Core\Products\Models\Product;
 use GetCandy\Api\Core\Scaffold\AbstractAction;
@@ -50,6 +51,10 @@ class ReorderAssets extends AbstractAction
             case 'category':
                 $realId = (new Category)->decodeId($this->assetable_id);
                 $model = Category::withDrafted()->find($realId);
+                break;
+            case 'blogs':
+                $realId = (new Blog)->decodeId($this->assetable_id);
+                $model = Blog::withDrafted()->find($realId);
                 break;
             default:
                 $realId = (new Product)->decodeId($this->assetable_id);

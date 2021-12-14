@@ -16,6 +16,9 @@ use GetCandy\Api\Core\Products\Events\ProductCreatedEvent;
 use GetCandy\Api\Core\Products\Events\ProductUpdatedEvent;
 use GetCandy\Api\Core\Products\Events\ProductViewedEvent;
 use GetCandy\Api\Core\Products\Listeners\AddToIndexListener as ProductIndexListener;
+use GetCandy\Api\Core\Blogs\Events\BlogCreatedEvent;
+use GetCandy\Api\Core\Blogs\Events\BlogViewedEvent;
+use GetCandy\Api\Core\Blogs\Listeners\AddToIndexListener as BlogIndexListener;
 use GetCandy\Api\Core\Search\Events\IndexableSavedEvent;
 use GetCandy\Api\Core\Search\Listeners\IndexObjectListener;
 use GetCandy\Api\Core\Search\Listeners\UpdateMappingsListener;
@@ -43,6 +46,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductViewedEvent::class => [
             AddDiscountToProductListener::class,
+        ],
+        BlogCreatedEvent::class => [
+            BlogIndexListener::class,
         ],
         BasketStoredEvent::class => [
             SyncWithBasketListener::class,

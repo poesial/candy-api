@@ -5,12 +5,15 @@ namespace GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\Searching;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Search as ElasticaSearch;
+use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Categories\Models\Category;
 use GetCandy\Api\Core\Products\Models\Product;
 use GetCandy\Api\Core\Search\Actions\FetchSearchedIds;
+use GetCandy\Api\Http\Resources\Blogs\BlogCollection;
 use GetCandy\Api\Http\Resources\Categories\CategoryCollection;
 use GetCandy\Api\Http\Resources\Products\ProductCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Lorisleiva\Actions\Action;
 
@@ -48,7 +51,6 @@ class Search extends Action
             'index' => 'nullable|string',
             'limit' => 'nullable|numeric',
             'offset' => 'nullable|numeric',
-            'page'   => 'nullable|numeric',
             'search_type' => 'nullable|string',
             'filters' => 'nullable',
             'aggregate' => 'nullable|array',
@@ -224,17 +226,36 @@ class Search extends Action
             'aggregations' => $result->getAggregations(),
         ]);
 
+        $type = $this->search_type;
+        switch ($type) {
+            case 'products':
+                $type = Product::class;
+                break;
+            case 'categories':
+                $type = Category::class;
+                break;
+            case 'blogs':
+                $type = Blog::class;
+                break;
+            default:
+                break;
+        }
         $models = FetchSearchedIds::run([
-            'model' => $this->search_type == 'products' ? Product::class : Category::class,
+            'model' => $type,
             'encoded_ids' => $ids->toArray(),
             'include' => $request->include,
             'counts' => $request->counts,
         ]);
 
+
         $resource = ProductCollection::class;
 
         if ($this->search_type == 'categories') {
             $resource = CategoryCollection::class;
+        }
+
+        if ($this->search_type == 'blogs') {
+            $resource = BlogCollection::class;
         }
 
         /**

@@ -50,7 +50,7 @@ class GetCandy
         }
 
         return $packages->first(function ($p) {
-            return $p->name === 'getcandy/candy-api';
+            return $p->name === 'poesial/candy-api';
         })->version;
     }
 

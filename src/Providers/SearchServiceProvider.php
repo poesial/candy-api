@@ -2,6 +2,7 @@
 
 namespace GetCandy\Api\Providers;
 
+use GetCandy\Api\Core\Search\Commands\IndexBlogsCommand;
 use GetCandy\Api\Core\Search\Commands\IndexCategoriesCommand;
 use GetCandy\Api\Core\Search\Commands\IndexProductsCommand;
 use GetCandy\Api\Core\Search\Commands\ScoreProductsCommand;
@@ -21,6 +22,7 @@ class SearchServiceProvider extends ServiceProvider
             $this->commands([
                 IndexProductsCommand::class,
                 IndexCategoriesCommand::class,
+                IndexBlogsCommand::class,
                 ScoreProductsCommand::class,
             ]);
         }

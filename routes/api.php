@@ -216,6 +216,30 @@
         $router->post('/{product}/customer-groups', 'ProductCustomerGroupController@store');
     });
 
+
+    /*
+    * Blogs
+    */
+    $router->prefix('blogs')->namespace('Blogs')->group(function ($router) {
+        $router->post('/{blog}/urls', 'BlogRouteController@store');
+        $router->put('/{blog}/assets', 'BlogAssetController@attach');
+        $router->post('/{v}/redirects', 'BlogRedirectController@store');
+        $router->post('/{blog}/attributes', 'BlogAttributeController@update');
+        $router->post('/{blog}/collections', 'BlogCollectionController@update');
+        $router->post('/{blog}/categories', 'BlogCategoryController@update');
+        $router->post('/{blog}/product', 'BlogProductController@update');
+        $router->post('/{blog}/channels', 'BlogChannelController@store');
+        $router->delete('/{blog}/categories/{category}', 'BlogCategoryController@destroy');
+        $router->delete('/{blog}/collections/{collection}', 'BlogCollectionController@destroy');
+        $router->post('/{blog}/associations', 'BlogAssociationController@store');
+        $router->delete('/{blog}/associations', 'BlogAssociationController@destroy');
+
+        /*
+        * Updates
+        */
+        $router->post('/{blog}/customer-groups', 'BlogCustomerGroupController@store');
+    });
+
     /*
      * Reporting
      */
@@ -255,6 +279,28 @@
         $group->put('{encoded_id}', '\GetCandy\Api\Core\Products\Actions\UpdateProductFamily');
         $group->delete('{encoded_id}', '\GetCandy\Api\Core\Products\Actions\DeleteProductFamily');
         $group->post('/', '\GetCandy\Api\Core\Products\Actions\CreateProductFamily');
+    });
+
+    /*
+    * Resource routes
+    */
+    $router->post('blogs/{id}/drafts', 'Blogs\BlogController@createDraft');
+    $router->post('blogs/{id}/publish', 'Blogs\BlogController@publishDraft');
+    $router->resource('blogs', 'Blogs\BlogController', [
+        'except' => ['edit', 'create', 'show'],
+    ]);
+
+    /*
+     * Blog families
+     */
+    $router->group([
+        'prefix' => 'blog-families',
+    ], function ($group) {
+        $group->get('/', '\GetCandy\Api\Core\Blogs\Actions\FetchBlogFamilies');
+        $group->get('{encoded_id}', '\GetCandy\Api\Core\Blogs\Actions\FetchBlogFamily');
+        $group->put('{encoded_id}', '\GetCandy\Api\Core\Blogs\Actions\UpdateBlogFamily');
+        $group->delete('{encoded_id}', '\GetCandy\Api\Core\Blogs\Actions\DeleteBlogFamily');
+        $group->post('/', '\GetCandy\Api\Core\Blogs\Actions\CreateBlogFamily');
     });
 
     /*

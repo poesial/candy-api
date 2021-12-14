@@ -2,6 +2,10 @@
 
 namespace GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\Searching;
 
+use GetCandy\Api\Core\Blogs\Models\Blog;
+use GetCandy\Api\Core\Categories\Models\Category;
+use GetCandy\Api\Core\Products\Models\Product;
+use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\FetchBlogMapping;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\FetchCategoryMapping;
 use GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions\FetchProductMapping;
 use GetCandy\Api\Core\Search\Providers\Elastic\Sorts\BasicSort;
@@ -58,7 +62,20 @@ class SetSorting extends Action
             }
         }
 
-        $mapping = $this->type == 'products' ? FetchProductMapping::run() : FetchCategoryMapping::run();
+        $mapping = FetchProductMapping::run();
+        switch ($this->type) {
+            case 'products':
+                $mapping = FetchProductMapping::run();
+                break;
+            case 'categories':
+                $mapping = FetchCategoryMapping::run();
+                break;
+            case 'blogs':
+                $mapping = FetchBlogMapping::run();
+                break;
+            default:
+                break;
+        }
 
         foreach ($sorts as $field => $dir) {
             $column = $field;

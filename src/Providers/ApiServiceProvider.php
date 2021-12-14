@@ -77,6 +77,7 @@ class ApiServiceProvider extends ServiceProvider
             RecycleBinServiceProvider::class,
             SettingServiceProvider::class,
             UserServiceProvider::class,
+            BlogServiceProvider::class,
         ];
         foreach ($providers as $provider) {
             $this->app->register($provider, true);

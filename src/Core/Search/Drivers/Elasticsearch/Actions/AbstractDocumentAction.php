@@ -4,6 +4,7 @@ namespace GetCandy\Api\Core\Search\Drivers\Elasticsearch\Actions;
 
 use GetCandy\Api\Core\Search\Document;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Lorisleiva\Actions\Action;
 
 class AbstractDocumentAction extends Action
@@ -81,8 +82,15 @@ class AbstractDocumentAction extends Action
                     $indexable->set('sku', $skus);
                 }
                 $indexable->set('departments', $categories->toArray());
-                $indexable->set('customer_groups', $this->getCustomerGroups($model));
-                $indexable->set('channels', $this->getChannels($model));
+
+                if ($model->customerGroups) {
+                    $indexable->set('customer_groups', $this->getCustomerGroups($model));
+                }
+
+                if ($model->channels) {
+                    $indexable->set('channels', $this->getChannels($model));
+                }
+
                 $indexable->set('breadcrumbs', $categories->implode('name', ' | '));
                 $indexables->push($indexable);
             }

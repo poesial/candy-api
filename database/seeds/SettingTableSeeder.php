@@ -24,6 +24,15 @@ class SettingTableSeeder extends Seeder
         ]);
 
         Setting::create([
+            'name' => 'Blogs',
+            'handle' => 'blogs',
+            'content' => [
+                'asset_source' => 'blogs',
+                'transforms' => ['large_thumbnail'],
+            ],
+        ]);
+
+        Setting::create([
             'name' => 'Invoices',
             'handle' => 'invoices',
             'content' => [

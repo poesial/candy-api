@@ -124,5 +124,15 @@ return [
             'salt' => env('HASHIDS_RECYCLE_BIN_SALT', 'recycle_bin'),
             'length' => 8,
         ],
+        'blog' => [
+            'alphabet' => $alphabet,
+            'salt' => env('HASHIDS_BLOG_SALT', 'product'),
+            'length' => 8,
+        ],
+        'blog_family' => [
+            'alphabet' => $alphabet,
+            'salt' => env('HASHIDS_BLOG_FAMILY_SALT', 'blog_family'),
+            'length' => 8,
+        ],
     ],
 ];

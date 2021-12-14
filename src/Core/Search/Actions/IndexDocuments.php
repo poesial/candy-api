@@ -2,6 +2,7 @@
 
 namespace GetCandy\Api\Core\Search\Actions;
 
+use Illuminate\Support\Facades\Log;
 use Lorisleiva\Actions\Action;
 
 class IndexDocuments extends Action
