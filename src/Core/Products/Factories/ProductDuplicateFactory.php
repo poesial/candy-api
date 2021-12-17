@@ -80,41 +80,41 @@ class ProductDuplicateFactory implements ProductInterface
             $newAsset = $a->replicate();
 
             // Move the file to it's new location
-            $newAsset->assetable_id = $newProduct->id;
+            $newAsset->asset_source_id = $newProduct->id;
 
             $newFilename = uniqid().'_'.$newAsset->filename;
 
-            try {
-                Storage::disk($newAsset->source->disk)->copy(
-                    "{$newAsset->location}/{$newAsset->filename}",
-                    "{$newAsset->location}/{$newFilename}"
-                );
-                $newAsset->filename = $newFilename;
-            } catch (FileNotFoundException $e) {
-                $newAsset->save();
+//            try {
+//                Storage::disk($newAsset->source->disk)->copy(
+//                    "{$newAsset->location}/{$newAsset->filename}",
+//                    "{$newAsset->location}/{$newFilename}"
+//                );
+//                $newAsset->filename = $newFilename;
+//            } catch (FileNotFoundException $e) {
+//                $newAsset->save();
+//
+//                return;
+//            }
 
-                return;
-            }
+//            $newAsset->save();
 
-            $newAsset->save();
-
-            foreach ($a->transforms as $transform) {
-                $newTransform = $transform->replicate();
-                $newTransform->asset_id = $newAsset->id;
-                $newFilename = uniqid().'_'.$newTransform->filename;
-
-                try {
-                    Storage::disk($newAsset->source->disk)->copy(
-                        "{$newTransform->location}/{$newTransform->filename}",
-                        "{$newTransform->location}/{$newFilename}"
-                    );
-                } catch (FileNotFoundException $e) {
-                    continue;
-                }
-
-                $newTransform->filename = $newFilename;
-                $newTransform->save();
-            }
+//            foreach ($a->transforms as $transform) {
+//                $newTransform = $transform->replicate();
+//                $newTransform->asset_id = $newAsset->id;
+//                $newFilename = uniqid().'_'.$newTransform->filename;
+//
+//                try {
+//                    Storage::disk($newAsset->source->disk)->copy(
+//                        "{$newTransform->location}/{$newTransform->filename}",
+//                        "{$newTransform->location}/{$newFilename}"
+//                    );
+//                } catch (FileNotFoundException $e) {
+//                    continue;
+//                }
+//
+//                $newTransform->filename = $newFilename;
+//                $newTransform->save();
+//            }
         });
     }
 
@@ -190,12 +190,12 @@ class ProductDuplicateFactory implements ProductInterface
     {
         foreach ($data['skus'] as $sku) {
             // Get the existing variant with this SKU.
-            $variant = $this->getVariantToCopy($currentVariants, $sku['current']);
+            $variant = $this->getVariantToCopy($currentVariants, $sku['sku']);
             if (! $variant) {
                 continue;
             }
             $variant->product_id = $newProduct->id;
-            $variant->sku = $sku['new'];
+            $variant->sku = $sku['sku'];
             $variant->save();
         }
     }
@@ -212,14 +212,14 @@ class ProductDuplicateFactory implements ProductInterface
     {
         foreach ($data['routes'] as $route) {
             $routeToCopy = $currentRoutes->first(function ($r) use ($route) {
-                return $r->slug == $route['current'];
+                return $r->slug == $route['slug'];
             });
 
             if (! $route) {
                 continue;
             }
             $newRoute = $routeToCopy->replicate();
-            $newRoute->slug = $route['new'];
+            $newRoute->slug = $route['slug'];
             $newRoute->element_id = $newProduct->id;
             $newRoute->save();
         }

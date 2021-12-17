@@ -27,8 +27,8 @@ class DuplicateRequest extends FormRequest
         return [
             'routes' => 'required|array',
             'skus' => 'required|array',
-            'routes.*.new' => 'required|unique:routes,slug',
-            'skus.*.new' => 'required|unique:product_variants,sku',
+//            'routes.*.new' => 'required|unique:routes,slug',
+//            'skus.*.new' => 'required|unique:product_variants,sku',
         ];
     }
 

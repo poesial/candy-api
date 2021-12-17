@@ -22,6 +22,7 @@ use GetCandy\Api\Http\Resources\Products\ProductResource;
 use Hashids;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -186,7 +187,8 @@ class ProductController extends BaseController
                 'assets',
                 'customerGroups',
                 'channels',
-            ])->findOrFail((new Product)->decodeId($product));
+            ])->withDrafted()
+                ->findOrFail((new Product)->decodeId($product));
         } catch (NotFoundHttpException $e) {
             return $this->errorNotFound();
         }

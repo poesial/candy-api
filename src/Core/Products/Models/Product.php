@@ -2,6 +2,7 @@
 
 namespace GetCandy\Api\Core\Products\Models;
 
+use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Categories\Models\Category;
 use GetCandy\Api\Core\Collections\Models\Collection;
 use GetCandy\Api\Core\Discounts\Models\DiscountCriteriaModel;
@@ -197,6 +198,11 @@ class Product extends BaseModel
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_categories')->withPivot('position');
+    }
+
+    public function blogs()
+    {
+        return $this->belongsToMany(Blog::class, 'product_blogs')->withPivot('position');
     }
 
     public function associations()

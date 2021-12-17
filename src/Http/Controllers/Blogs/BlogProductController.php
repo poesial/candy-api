@@ -10,37 +10,37 @@ use GetCandy\Api\Http\Resources\Products\ProductCollection;
 class BlogProductController extends BaseController
 {
     /**
-     * Handles the request to update a blogs categories.
+     * Handles the request to update a blogs products.
      *
      * @param  string  $id
-     * @param  \GetCandy\Api\Http\Requests\Blogs\UpdateCategoriesRequest  $request
-     * @return ProductCollection
+     * @param  \GetCandy\Api\Http\Requests\Blogs\UpdateProductsRequest  $request
+     * @return \GetCandy\Api\Http\Resources\Products\ProductCollection
      */
     public function update($blog, UpdateProductsRequest $request)
     {
-        $categories = GetCandy::blogProducts()->update($blog, $request->all());
+        $products = GetCandy::blogProducts()->update($blog, $request->all());
 
-        return new ProductCollection($categories);
+        return new ProductCollection($products);
     }
 
-//    /**
-//     * Deletes a blog's category.
-//     *
-//     * @param  string  $blogId
-//     * @param  string  $categoryId
-//     * @return \Illuminate\Http\JsonResponse
-//     */
-//    public function destroy($blogId, $categoryId)
-//    {
-//        $result = GetCandy::blogCategories()->delete($blogId, $categoryId);
-//
-//        if ($result) {
-//            return response()->json([
-//                'message' => 'Successfully removed category from blog',
-//                'categoryName' => 'test',
-//            ], 202);
-//        }
-//
-//        return response()->json('Error', 500);
-//    }
+    /**
+     * Deletes a blog's product.
+     *
+     * @param  string  $blogId
+     * @param  string  $productId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($blogId, $productId)
+    {
+        $result = GetCandy::blogProducts()->delete($blogId, $productId);
+
+        if ($result) {
+            return response()->json([
+                'message' => 'Successfully removed product from blog',
+                'productName' => 'test',
+            ], 202);
+        }
+
+        return response()->json('Error', 500);
+    }
 }

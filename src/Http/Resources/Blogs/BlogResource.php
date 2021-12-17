@@ -6,6 +6,7 @@ use GetCandy\Api\Core\Channels\Resources\ChannelCollection;
 use GetCandy\Api\Core\Customers\Resources\CustomerGroupCollection;
 use GetCandy\Api\Core\Blogs\Resources\BlogFamilyResource;
 use GetCandy\Api\Core\Routes\Resources\RouteCollection;
+use GetCandy\Api\Http\Controllers\Blogs\BlogController;
 use GetCandy\Api\Http\Resources\AbstractResource;
 use GetCandy\Api\Http\Resources\Assets\AssetCollection;
 use GetCandy\Api\Http\Resources\Assets\AssetResource;
@@ -14,6 +15,7 @@ use GetCandy\Api\Http\Resources\Categories\CategoryCollection;
 use GetCandy\Api\Http\Resources\Collections\CollectionCollection;
 use GetCandy\Api\Http\Resources\Discounts\DiscountModelCollection;
 use GetCandy\Api\Http\Resources\Layouts\LayoutResource;
+use GetCandy\Api\Http\Resources\Products\ProductCollection;
 use GetCandy\Api\Http\Resources\Versioning\VersionCollection;
 
 class BlogResource extends AbstractResource
@@ -48,6 +50,7 @@ class BlogResource extends AbstractResource
             'routes' => new RouteCollection($this->whenLoaded('routes')),
             'primary_asset' => $this->include('primaryAsset', AssetResource::class),
             'categories' => new CategoryCollection($this->whenLoaded('categories'), $this->only),
+            'products' => new ProductCollection($this->whenLoaded('products'), $this->only),
             'associations' => new BlogAssociationCollection($this->whenLoaded('associations'), $this->only),
             'versions' => new VersionCollection($this->whenLoaded('versions'), $this->only),
         ];

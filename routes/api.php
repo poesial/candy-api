@@ -204,6 +204,7 @@
         $router->post('/{product}/attributes', 'ProductAttributeController@update');
         $router->post('/{product}/collections', 'ProductCollectionController@update');
         $router->post('/{product}/categories', 'ProductCategoryController@update');
+        $router->post('/{product}/blogs', 'ProductBlogController@update');
         $router->post('/{product}/channels', 'ProductChannelController@store');
         $router->delete('/{product}/categories/{category}', 'ProductCategoryController@destroy');
         $router->delete('/{product}/collections/{collection}', 'ProductCollectionController@destroy');
@@ -216,6 +217,7 @@
         $router->post('/{product}/customer-groups', 'ProductCustomerGroupController@store');
     });
 
+    $router->put('contents/{id}', 'Contents\ContentController@update');
 
     /*
     * Blogs
@@ -227,6 +229,7 @@
         $router->post('/{blog}/attributes', 'BlogAttributeController@update');
         $router->post('/{blog}/collections', 'BlogCollectionController@update');
         $router->post('/{blog}/categories', 'BlogCategoryController@update');
+        $router->post('/{blog}/products', 'BlogProductController@update');
         $router->post('/{blog}/product', 'BlogProductController@update');
         $router->post('/{blog}/channels', 'BlogChannelController@store');
         $router->delete('/{blog}/categories/{category}', 'BlogCategoryController@destroy');

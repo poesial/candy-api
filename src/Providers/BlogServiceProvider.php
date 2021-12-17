@@ -13,6 +13,7 @@ use GetCandy\Api\Core\Blogs\Observers\BlogObserver;
 use GetCandy\Api\Core\Blogs\Services\BlogAssociationService;
 use GetCandy\Api\Core\Blogs\Services\BlogCategoryService;
 use GetCandy\Api\Core\Blogs\Services\BlogCollectionService;
+use GetCandy\Api\Core\Blogs\Services\BlogProductService;
 use GetCandy\Api\Core\Blogs\Services\BlogService;
 use GetCandy\Api\Core\Blogs\Services\BlogVariantService;
 use GetCandy\Api\Core\Blogs\Versioning\BlogVariantVersioner;
@@ -66,6 +67,10 @@ class BlogServiceProvider extends ServiceProvider
 
         $this->app->bind('getcandy.blog_categories', function ($app) {
             return $app->make(BlogCategoryService::class);
+        });
+
+        $this->app->bind('getcandy.blog_products', function ($app) {
+            return $app->make(BlogProductService::class);
         });
     }
 }

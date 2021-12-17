@@ -7,6 +7,7 @@ use GetCandy\Api\Core\Collections\Models\Collection;
 use GetCandy\Api\Core\Discounts\Models\DiscountCriteriaModel;
 use GetCandy\Api\Core\Layouts\Models\Layout;
 use GetCandy\Api\Core\Pages\Models\Page;
+use GetCandy\Api\Core\Products\Models\Product;
 use GetCandy\Api\Core\RecycleBin\Traits\Recyclable;
 use GetCandy\Api\Core\Scaffold\BaseModel;
 use GetCandy\Api\Core\Traits\Assetable;
@@ -185,6 +186,11 @@ class Blog extends BaseModel
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'blog_categories')->withPivot('position');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'blog_products')->withPivot('position');
     }
 
     public function associations()

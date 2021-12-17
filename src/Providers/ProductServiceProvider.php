@@ -11,6 +11,7 @@ use GetCandy\Api\Core\Products\Interfaces\ProductVariantInterface;
 use GetCandy\Api\Core\Products\Models\Product;
 use GetCandy\Api\Core\Products\Observers\ProductObserver;
 use GetCandy\Api\Core\Products\Services\ProductAssociationService;
+use GetCandy\Api\Core\Products\Services\ProductBlogService;
 use GetCandy\Api\Core\Products\Services\ProductCategoryService;
 use GetCandy\Api\Core\Products\Services\ProductCollectionService;
 use GetCandy\Api\Core\Products\Services\ProductService;
@@ -66,6 +67,10 @@ class ProductServiceProvider extends ServiceProvider
 
         $this->app->bind('getcandy.product_categories', function ($app) {
             return $app->make(ProductCategoryService::class);
+        });
+
+        $this->app->bind('getcandy.product_blogs', function ($app) {
+            return $app->make(ProductBlogService::class);
         });
     }
 }
