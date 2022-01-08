@@ -6,6 +6,8 @@ use GetCandy\Api\Core\Blogs\Models\Blog;
 use GetCandy\Api\Core\Categories\Models\Category;
 use GetCandy\Api\Core\Collections\Models\Collection;
 use GetCandy\Api\Core\Discounts\Models\DiscountCriteriaModel;
+use GetCandy\Api\Core\GoodFor\Models\GoodFor;
+use GetCandy\Api\Core\GoodFor\Models\GoodForProduct;
 use GetCandy\Api\Core\Layouts\Models\Layout;
 use GetCandy\Api\Core\Pages\Models\Page;
 use GetCandy\Api\Core\RecycleBin\Traits\Recyclable;
@@ -203,6 +205,11 @@ class Product extends BaseModel
     public function blogs()
     {
         return $this->belongsToMany(Blog::class, 'product_blogs')->withPivot('position');
+    }
+
+    public function goodForIcons()
+    {
+        return $this->belongsToMany(GoodFor::class, 'product_good_for_icons')->withPivot('position');
     }
 
     public function associations()

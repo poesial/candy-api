@@ -14,6 +14,7 @@ use GetCandy\Api\Http\Resources\Blogs\BlogCollection;
 use GetCandy\Api\Http\Resources\Categories\CategoryCollection;
 use GetCandy\Api\Http\Resources\Collections\CollectionCollection;
 use GetCandy\Api\Http\Resources\Discounts\DiscountModelCollection;
+use GetCandy\Api\Http\Resources\GoodFor\GoodForCollection;
 use GetCandy\Api\Http\Resources\Layouts\LayoutResource;
 use GetCandy\Api\Http\Resources\Versioning\VersionCollection;
 
@@ -53,6 +54,7 @@ class ProductResource extends AbstractResource
             'primary_asset' => $this->include('primaryAsset', AssetResource::class),
             'categories' => new CategoryCollection($this->whenLoaded('categories'), $this->only),
             'blogs' => new BlogCollection($this->whenLoaded('blogs'), $this->only),
+            'good_for_icons' => new GoodForCollection($this->whenLoaded('goodForIcons'), $this->only),
             'variants' => new ProductVariantCollection($this->whenLoaded('variants'), $this->only),
             'discounts' => new DiscountModelCollection($this->whenLoaded('discounts'), $this->only),
             'collections' => new CollectionCollection($this->whenLoaded('collections'), $this->only),

@@ -18,6 +18,7 @@ use GetCandy\Api\Core\Scaffold\BaseService;
 use GetCandy\Api\Core\Scopes\CustomerGroupScope;
 use GetCandy\Api\Core\Search\Events\IndexableSavedEvent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class ProductService extends BaseService
 {
@@ -25,6 +26,11 @@ class ProductService extends BaseService
      * @var \GetCandy\Api\Core\Products\Models\Product
      */
     protected $model;
+
+    /**
+     * @var \GetCandy\Api\Core\GoodFor\Models\GoodFor
+     */
+    protected $modelProduct;
 
     /**
      * The product factory instance.
@@ -36,6 +42,7 @@ class ProductService extends BaseService
     public function __construct(ProductInterface $factory)
     {
         $this->model = new Product();
+        $this->modelProduct = new GetCandy\Api\Core\GoodFor\Models\GoodForProduct();
         $this->factory = $factory;
     }
 
@@ -465,5 +472,23 @@ class ProductService extends BaseService
             }])->whereHas('variants', function ($q2) use ($limit) {
                 return $q2->where('stock', '<=', $limit);
             })->get();
+    }
+
+    public function attach($id, $productId) {
+        $findGoodFor = $this->modelProduct->query()
+            ->where('product_id', $this->getByHashedId($productId, true)->id)
+            ->where('good_for_id', $id)
+            ->first();
+
+        if ($findGoodFor) {
+            $findGoodFor->delete();
+        } else {
+            return $this->modelProduct->query()->create([
+                'product_id' => $this->getByHashedId($productId, true)->id,
+                'good_for_id' => $id
+            ]);
+        }
+
+        return true;
     }
 }

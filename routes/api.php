@@ -218,6 +218,10 @@
     });
 
     $router->put('contents/{id}', 'Contents\ContentController@update');
+    $router->put('brand-management', 'Brand\BrandController@update');
+    $router->post('good-for', 'GoodFor\GoodForController@store');
+    $router->delete('good-for/{id}', 'GoodFor\GoodForController@destroy');
+    $router->post('good-for/{id}/product/{product_id}', 'GoodFor\GoodForController@attach');
 
     /*
     * Blogs

@@ -23,6 +23,8 @@ $router->get('blogs/recommended', 'Blogs\BlogController@recommended');
 $router->get('blogs/{encoded_id}', '\GetCandy\Api\Core\Blogs\Actions\FetchBlog');
 $router->get('blogs', 'Blogs\BlogController@index');
 $router->get('contents/{id}', 'Contents\ContentController@index');
+$router->get('brand-management', 'Brand\BrandController@index');
+$router->get('good-for', 'GoodFor\GoodForController@index');
 
 /*
 * Customers
